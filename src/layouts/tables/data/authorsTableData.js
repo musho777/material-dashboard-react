@@ -1,30 +1,14 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
-
 // Images
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import tired from "assets/images/feeling/tired.svg";
+import angry from "assets/images/feeling/angry.svg";
+import good from "assets/images/feeling/good.svg";
 
 export default function data() {
   const Author = ({ image, name, email }) => (
@@ -39,137 +23,222 @@ export default function data() {
     </MDBox>
   );
 
-  const Job = ({ title, description }) => (
-    <MDBox lineHeight={1} textAlign="left">
+  const Job = ({ blink }) => (
+    <MDBox lineHeight={1} textAlign="center">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {title}
+        {blink}
       </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
     </MDBox>
   );
 
+  const AbletoDrive = ({ title, description }) => (
+    <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+      5h 25 min
+    </MDTypography>
+  );
+
+  // Everything is fine
+  // Need some rest
+  // A little nap
+  // Short rest
+
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
-      { Header: "function", accessor: "function", align: "left" },
+      { Header: "author", accessor: "author", align: "left" },
+      { Header: "Eye blink", accessor: "Eyeblink", align: "center" },
+      { Header: "Able to drive", accessor: "abletodrive", align: "center" },
+      // { Header: "Head Radius", accessor: "HeadRadius", align: "center" },
+      { Header: "Active Drive", accessor: "ActiveDrive", align: "center" },
+      { Header: "Driver Emotions", accessor: "DriverEmotions", align: "center" },
       { Header: "status", accessor: "status", align: "center" },
-      { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "Driver status", accessor: "DriverStatus", align: "center" },
     ],
 
     rows: [
       {
         author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
-        status: (
+        Eyeblink: <Job blink={30} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
-          </MDTypography>
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={tired} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              Need some rest
+            </MDTypography>
+          </MDBox>
         ),
       },
       {
-        author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        function: <Job title="Executive" description="Projects" />,
+        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        Eyeblink: <Job blink={20} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
+          </MDBox>
+        ),
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
-          </MDTypography>
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={good} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              Everything is fine
+            </MDTypography>
+          </MDBox>
         ),
       },
       {
-        author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
+        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        Eyeblink: <Job blink={15} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
+          </MDBox>
+        ),
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
-          </MDTypography>
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={good} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              Everything is fine
+            </MDTypography>
+          </MDBox>
         ),
       },
       {
-        author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
-        function: <Job title="Manager" description="Executive" />,
+        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        Eyeblink: <Job blink={20} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
+          </MDBox>
+        ),
+        status: (
+          <MDBox ml={-1}>
+            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+          </MDBox>
+        ),
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={good} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
+        ),
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              Everything is fine
+            </MDTypography>
+          </MDBox>
+        ),
+      },
+      {
+        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        Eyeblink: <Job blink={30} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
+          </MDBox>
+        ),
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
-          </MDTypography>
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={angry} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              A little nap
+            </MDTypography>
+          </MDBox>
         ),
       },
       {
-        author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
+        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        Eyeblink: <Job blink={40} />,
+        abletodrive: <AbletoDrive />,
+        ActiveDrive: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              1h 45 min
+            </MDTypography>
+          </MDBox>
+        ),
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
-          </MDTypography>
+        DriverEmotions: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              <MDAvatar src={tired} name={"felling"} size="sm" variant="rounded" />
+            </MDTypography>
+          </MDBox>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
+        DriverStatus: (
+          <MDBox ml={-1}>
+            <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
+              Short rest
+            </MDTypography>
+          </MDBox>
         ),
       },
     ],
