@@ -38,7 +38,6 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   const values = [];
   const { socialMediaColors } = colors;
   const { size } = typography;
-
   // Convert this form `objectKey` of the object key in to this `object key`
   Object.keys(info).forEach((el) => {
     if (el.match(/[A-Z\s]+/)) {
@@ -84,6 +83,8 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
     </MDBox>
   ));
 
+  console.log(renderSocial);
+
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
@@ -107,12 +108,14 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
         </MDBox>
         <MDBox>
           {renderItems}
-          <MDBox display="flex" py={1} pr={2}>
-            <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-              social: &nbsp;
-            </MDTypography>
-            {renderSocial}
-          </MDBox>
+          {renderSocial.length > 0 && (
+            <MDBox display="flex" py={1} pr={2}>
+              <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
+                social: &nbsp;
+              </MDTypography>
+              {renderSocial}
+            </MDBox>
+          )}
         </MDBox>
       </MDBox>
     </Card>
