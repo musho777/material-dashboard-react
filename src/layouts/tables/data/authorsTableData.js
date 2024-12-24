@@ -8,6 +8,7 @@ import angry from "assets/images/feeling/angry.svg";
 import good from "assets/images/feeling/good.svg";
 import MDProgress from "components/MDProgress";
 import { NavLink } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function Data() {
   const Author = ({ image, name, email }) => (
@@ -47,14 +48,16 @@ export default function Data() {
       display="flex"
       alignItems="center"
     >
-      <MDTypography variant="caption" color="text" fontWeight="medium">
+      {/* <MDTypography variant="caption" color="text" fontWeight="medium">
         1h 45m
-      </MDTypography>
+      </MDTypography> */}
       <MDBox ml={1} mr={1} width="9rem">
-        <MDProgress variant="gradient" color={color} value={value} />
+        <Tooltip title={"1h 45m / 5h 15m"} placement="top">
+          <MDProgress variant="gradient" color={color} value={value} />
+        </Tooltip>
       </MDBox>
       <MDTypography variant="caption" color="text" fontWeight="medium">
-        5h 15m
+        60%
       </MDTypography>
     </MDBox>
   );
@@ -113,7 +116,7 @@ export default function Data() {
         ActiveDrive: (
           <MDBox ml={-1}>
             <MDTypography isplay="block" variant="caption" color="text" fontWeight="medium">
-              1h 45 min
+              1h 15 min
             </MDTypography>
           </MDBox>
         ),

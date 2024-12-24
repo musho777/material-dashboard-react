@@ -18,12 +18,20 @@ export default styled(TextField)(({ theme, ownerState }) => {
 
     "& .Mui-focused": {
       "& .MuiOutlinedInput-notchedOutline, &:after": {
-        borderColor: colorError.main,
+        borderColor: `${colorError.main} !important`,
       },
     },
 
     "& .MuiInputLabel-root.Mui-focused": {
-      color: colorError.main,
+      color: `${colorError.main} !important`,
+      borderColor: `${colorError.main} !important`,
+    },
+    "& .MuiOutlinedInput-input": {
+      borderColor: "red !important",
+      color: "#FFFFFF",
+    },
+    "& .MuiOutlinedInput-notchedOutline, &:after": {
+      borderColor: `${colorError.main} !important`,
     },
   });
 
@@ -56,10 +64,13 @@ export default styled(TextField)(({ theme, ownerState }) => {
       "& .MuiInputLabel-root": {
         color: "#FFFFFF ", // Optional: Change label focus color to white
       },
-      "& .MuiOutlinedInput-input": {
-        borderColor: "#FFFFFF !important",
-        color: "#FFFFFF", // Change input text color to white
-      },
+    },
+    "& .MuiOutlinedInput-input": {
+      borderColor: "#FFFFFF !important",
+      color: "#FFFFFF",
+    },
+    "& .MuiInputBase-input::placeholder": {
+      color: "white !important",
     },
     ...(error && errorStyles()),
     ...(success && successStyles()),
