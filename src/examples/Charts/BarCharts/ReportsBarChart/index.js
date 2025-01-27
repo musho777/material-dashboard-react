@@ -46,7 +46,6 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 function ReportsBarChart({ color, title, description, date, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
-
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox padding="1rem">
@@ -62,7 +61,7 @@ function ReportsBarChart({ color, title, description, date, chart }) {
               mt={-5}
               height="12.5rem"
             >
-              <Bar data={data} options={options} redraw />
+              <Bar data={data} options={options} />
             </MDBox>
           ),
           [color, chart]

@@ -10,9 +10,7 @@ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.*/
 import React, { useState, useEffect } from "react";
 
 // prop-types is a library for typechecking of props.
@@ -38,7 +36,7 @@ import breakpoints from "assets/theme/base/breakpoints";
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 
-function Header({ children, setScreen }) {
+function Header({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
@@ -61,11 +59,6 @@ function Header({ children, setScreen }) {
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
-
-  const handleSetTabValue = (event, newValue) => {
-    setTabValue(newValue);
-    setScreen(newValue);
-  };
 
   return (
     <MDBox position="relative" mb={5}>

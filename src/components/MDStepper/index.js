@@ -106,7 +106,6 @@ ColorlibStepIcon.propTypes = {
 const steps = ["User", "Car", "Password"];
 
 export default function MDStepper({ step }) {
-  console.log(step, "step");
   return (
     <Stack sx={{ width: "100%", marginBottom: 5 }} spacing={2}>
       <Stepper alternativeLabel activeStep={step} connector={<ColorlibConnector />}>
