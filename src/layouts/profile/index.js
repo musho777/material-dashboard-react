@@ -51,7 +51,7 @@ function Overview() {
       <DashboardNavbar />
       <MDBox mb={2} />
       <Header setScreen={(e) => setScreen(e)}>
-        {screen == 0 && (
+        {/* {screen == 0 && (
           <MDBox mt={5} mb={3}>
             <Grid container spacing={1}>
               <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
@@ -124,51 +124,85 @@ function Overview() {
               </Grid>
             </Grid>
           </MDBox>
-        )}
-        {screen == 1 && (
-          <MDBox mt={10.5}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6} lg={4}>
-                <MDBox mb={3}>
-                  <ReportsBarChart
-                    color="info"
-                    title="website views"
-                    description="Last Campaign Performance"
-                    date="campaign sent 2 days ago"
-                    chart={reportsBarChartData}
-                  />
-                </MDBox>
-              </Grid>
-              <Grid item xs={12} md={6} lg={4}>
-                <MDBox mb={3}>
-                  <ReportsLineChart
-                    color="success"
-                    title="daily sales"
-                    description={
-                      <>
-                        (<strong>+15%</strong>) increase in today sales.
-                      </>
-                    }
-                    date="updated 4 min ago"
-                    chart={sales}
-                  />
-                </MDBox>
-              </Grid>
-              <Grid item xs={12} md={6} lg={4}>
-                <MDBox mb={3}>
-                  <ReportsLineChart
-                    color="dark"
-                    title="completed tasks"
-                    description="Last Campaign Performance"
-                    date="just updated"
-                    chart={tasks}
-                  />
-                </MDBox>
-              </Grid>
+        )} */}
+        {/* {screen == 1 && ( */}
+        <MDBox mt={10.5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="info"
+                  title="Eye Blink"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
             </Grid>
-          </MDBox>
-        )}
-        {screen == 2 && (
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="info"
+                  title="Heart Rate"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="info"
+                  title="Blood Pressure"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
+        <MDBox mt={5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="info"
+                  title="Head Sloap"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="success"
+                  title="line Cross"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={3}>
+                <ReportsBarChart
+                  color="info"
+                  title="Emotions"
+                  description="Last Campaign Performance"
+                  date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
+
+        {/* )} */}
+        {/* {screen == 2 && (
           <MDBox mt={5} mb={3}>
             <Grid container spacing={1}>
               <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
@@ -179,7 +213,7 @@ function Overview() {
                     Heart_Rate: "60–100 BPM",
                     Blood_Pressure: "120/80 mmHg",
                     Body_Temperature: "36.5°C to 37.5°C",
-                    Eye_Blinks: "USA",
+                    Eye_Blinks: "30",
                     Head_Sloap: "45",
                     line_Cross: "0",
                   }}
@@ -197,7 +231,7 @@ function Overview() {
                     Heart_Rate: "60–100 BPM",
                     Blood_Pressure: "120/80 mmHg",
                     Body_Temperature: "36.5°C to 37.5°C",
-                    Eye_Blinks: "USA",
+                    Eye_Blinks: "30",
                     Head_Sloap: "45",
                     line_Cross: "4",
                   }}
@@ -227,7 +261,7 @@ function Overview() {
               </Grid>
             </Grid>
           </MDBox>
-        )}
+        )} */}
       </Header>
       <Footer />
     </DashboardLayout>

@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -22,7 +7,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
@@ -43,6 +27,9 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
+import SignIn from "layouts/authentication/sign-in";
+import SignUp from "layouts/authentication/sign-up";
+
 // Material Dashboard 2 React routes
 import routes from "routes";
 
@@ -52,8 +39,12 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import { useAuth } from "context/AuthContext";
+import { XlviLoader } from "react-awesome-loaders";
 
 export default function App() {
+  const { isAuthenticated, user, login, logout, loading } = useAuth();
+  console.log(loading);
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -95,15 +86,12 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
 
-  // Setting page scroll to 0 when changing the route
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -114,7 +102,6 @@ export default function App() {
       if (route.collapse) {
         return getRoutes(route.collapse);
       }
-
       if (route.route) {
         return <Route exact path={route.route} element={route.component} key={route.key} />;
       }
@@ -146,11 +133,67 @@ export default function App() {
     </MDBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: "#1a202c",
+          padding: 0,
+          margin: -8,
+        }}
+      >
+        <XlviLoader
+          boxColors={["#EF4444", "#F59E0B", "#6366F1"]}
+          desktopSize={"128px"}
+          mobileSize={"100px"}
+        />
+      </div>
+    );
+  } else
+    return direction === "rtl" ? (
+      <CacheProvider value={rtlCache}>
+        <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+          <CssBaseline />
+          {layout === "dashboard" && isAuthenticated && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                brandName="Material Dashboard 2"
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              <Configurator />
+              {configsButton}
+            </>
+          )}
+          {layout === "vr" && <Configurator />}
+
+          <Routes>
+            {!isAuthenticated ? (
+              <>
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="*" element={<Navigate to="/sign-in" />} />
+              </>
+            ) : (
+              <>
+                {getRoutes(routes)}
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </>
+            )}
+          </Routes>
+        </ThemeProvider>
+      </CacheProvider>
+    ) : (
+      <ThemeProvider theme={darkMode ? themeDark : theme}>
         <CssBaseline />
-        {layout === "dashboard" && (
+        {layout === "dashboard" && isAuthenticated && (
           <>
             <Sidenav
               color={sidenavColor}
@@ -166,33 +209,19 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          {!isAuthenticated ? (
+            <>
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="*" element={<Navigate to="/sign-in" />} />
+            </>
+          ) : (
+            <>
+              {getRoutes(routes)}
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </>
+          )}
         </Routes>
       </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </ThemeProvider>
-  );
+    );
 }

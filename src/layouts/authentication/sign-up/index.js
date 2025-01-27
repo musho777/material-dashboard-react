@@ -17,7 +17,6 @@ import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
@@ -64,7 +63,7 @@ function Cover() {
           </MDTypography>
         </MDAlert>
       </MDBox>
-      <MDStepper step={step} />
+      {/* <MDStepper step={step} /> steps*/}
       <Card
         sx={{
           backgroundColor: "rgba(0, 0, 0, 0.4)",
