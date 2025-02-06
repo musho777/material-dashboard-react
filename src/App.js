@@ -44,7 +44,6 @@ import { XlviLoader } from "react-awesome-loaders";
 
 export default function App() {
   const { isAuthenticated, user, login, logout, loading } = useAuth();
-  console.log(loading);
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,

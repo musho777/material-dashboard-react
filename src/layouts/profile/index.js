@@ -8,11 +8,16 @@ import Footer from "examples/Footer";
 import Header from "layouts/profile/components/Header";
 
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useFetch } from "hooks/useFetch";
+import { AuthContext } from "context/AuthContext";
 
-function Overview() {
+function Overview(props) {
+  const [url, setUrl] = useState("");
+  const { data } = useFetch({ url, interval: 3000 });
+  const { user } = useContext(AuthContext);
   const [eyeBlinkData, setEyeBlinkData] = useState({
-    data: [],
+    data: {},
     error: "",
     loading: false,
     lastUpdate: null,
@@ -22,26 +27,19 @@ function Overview() {
     datasets: { label: "eye blink", data: [10, 20, 10, 22, 50] },
   };
 
-  const getEyeBlink = async () => {
-    const token = "678905b5de805c654489b0f4";
+  useEffect(() => {
+    const id = user?.user?.id;
+    setUrl(`${process.env.REACT_APP_API_URL}/api/driverCondition/getEyeBlink/${id}?page=1`);
+  }, []);
+
+  useEffect(() => {
     const now = new Date();
     const options = { hour: "2-digit", minute: "2-digit" };
     let curretnDate = now.toLocaleTimeString([], options);
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/driverCondition/getEyeBlink/${token}?page=1`
-      );
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      if (!data.eyeBlinks) {
-        throw new Error("Insufficient eye blink data received.");
-      }
-      const eyeData = {
-        labels: data.eyeBlinks
+    let eyeData = {};
+    if (data.eyeBlinks) {
+      eyeData = {
+        labels: data?.eyeBlinks
           ?.map((blink) => {
             const date = new Date(blink.timestamp);
             return `${date.getHours()}:${String(date.getUTCMinutes()).padStart(2, "0")}`;
@@ -49,32 +47,17 @@ function Overview() {
           .reverse(),
         datasets: {
           label: "eye blink",
-          data: data.eyeBlinks.map((blink) => blink.count).reverse(),
+          data: data?.eyeBlinks.map((blink) => blink.count).reverse(),
         },
       };
-      setEyeBlinkData({
-        data: eyeData,
-        error: "",
-        loading: false,
-        lastUpdate: curretnDate,
-      });
-    } catch (error) {
-      setEyeBlinkData({
-        data: null,
-        error: error.message,
-        loading: false,
-        lastUpdate: curretnDate,
-      });
     }
-  };
-
-  useEffect(() => {
-    getEyeBlink();
-    const interval = setInterval(() => {
-      getEyeBlink();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    setEyeBlinkData({
+      data: eyeData,
+      error: "",
+      loading: false,
+      lastUpdate: curretnDate,
+    });
+  }, [data]);
 
   return (
     <DashboardLayout>
@@ -90,7 +73,7 @@ function Overview() {
                   title="Eye Blink"
                   description="Last 5 Eye Blink"
                   date={`last update in ${eyeBlinkData.lastUpdate}`}
-                  chart={eyeBlinkData.data}
+                  chart={eyeBlinkData?.data}
                 />
               </MDBox>
             </Grid>
