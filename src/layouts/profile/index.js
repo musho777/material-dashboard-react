@@ -11,8 +11,10 @@ import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import { useContext, useEffect, useState } from "react";
 import { useFetch } from "hooks/useFetch";
 import { AuthContext } from "context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Overview(props) {
+  const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const { data } = useFetch({ url, interval: 3000 });
   const { user } = useContext(AuthContext);
@@ -65,7 +67,7 @@ function Overview(props) {
       <MDBox mb={2} />
       <Header>
         <MDBox mt={10.5}>
-          <Grid container spacing={3}>
+          <Grid onClick={() => navigate("/profile/statistic")} container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
                 <ReportsBarChart
