@@ -7,18 +7,18 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
-// Material Dashboard 2 React components
+// Driver Control React components
 import MDBox from "components/MDBox";
 
-// Material Dashboard 2 React example components
+// Driver Control React example components
 import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 
-// Material Dashboard 2 React themes
+// Driver Control React themes
 import theme from "assets/theme";
 import themeRTL from "assets/theme/theme-rtl";
 
-// Material Dashboard 2 React Dark Mode themes
+// Driver Control React Dark Mode themes
 import themeDark from "assets/theme-dark";
 import themeDarkRTL from "assets/theme-dark/theme-rtl";
 
@@ -30,10 +30,10 @@ import createCache from "@emotion/cache";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
-// Material Dashboard 2 React routes
+// Driver Control React routes
 import routes from "routes";
 
-// Material Dashboard 2 React contexts
+// Driver Control React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
@@ -43,7 +43,7 @@ import { useAuth } from "context/AuthContext";
 import { XlviLoader } from "react-awesome-loaders";
 
 export default function App() {
-  const { isAuthenticated, user, login, logout, loading } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -162,7 +162,7 @@ export default function App() {
               <Sidenav
                 color={sidenavColor}
                 brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                brandName="Material Dashboard 2"
+                brandName="Driver Control"
                 routes={routes}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
@@ -197,7 +197,7 @@ export default function App() {
             <Sidenav
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Material Dashboard 2"
+              brandName="Driver Control"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}

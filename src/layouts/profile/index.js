@@ -32,7 +32,7 @@ function Overview(props) {
   useEffect(() => {
     const id = user?.user?.id;
     setUrl(`${process.env.REACT_APP_API_URL}/api/driverCondition/getEyeBlink/${id}?page=1`);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const now = new Date();

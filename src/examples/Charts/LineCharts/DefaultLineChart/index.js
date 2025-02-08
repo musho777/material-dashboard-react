@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Material Dashboard 2  React - v2.2.0
+* Driver Control  React - v2.2.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-dashboard-react
@@ -36,14 +36,14 @@ import {
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Driver Control React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // DefaultLineChart configurations
 import configs from "examples/Charts/LineCharts/DefaultLineChart/configs";
 
-// Material Dashboard 2 React base styles
+// Driver Control React base styles
 import colors from "assets/theme/base/colors";
 
 ChartJS.register(
@@ -60,20 +60,20 @@ ChartJS.register(
 function DefaultLineChart({ icon, title, description, height, chart }) {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
-        ...dataset,
-        tension: 0,
-        pointRadius: 3,
-        borderWidth: 4,
-        backgroundColor: "transparent",
-        fill: true,
-        pointBackgroundColor: colors[dataset.color]
-          ? colors[dataset.color || "dark"].main
-          : colors.dark.main,
-        borderColor: colors[dataset.color]
-          ? colors[dataset.color || "dark"].main
-          : colors.dark.main,
-        maxBarThickness: 6,
-      }))
+      ...dataset,
+      tension: 0,
+      pointRadius: 3,
+      borderWidth: 4,
+      backgroundColor: "transparent",
+      fill: true,
+      pointBackgroundColor: colors[dataset.color]
+        ? colors[dataset.color || "dark"].main
+        : colors.dark.main,
+      borderColor: colors[dataset.color]
+        ? colors[dataset.color || "dark"].main
+        : colors.dark.main,
+      maxBarThickness: 6,
+    }))
     : [];
 
   const { data, options } = configs(chart.labels || [], chartDatasets);

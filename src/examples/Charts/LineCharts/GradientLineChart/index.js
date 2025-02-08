@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Material Dashboard 2  React - v2.2.0
+* Driver Control  React - v2.2.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-dashboard-react
@@ -36,17 +36,17 @@ import {
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Driver Control React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-// Material Dashboard 2 React helper functions
+// Driver Control React helper functions
 import gradientChartLine from "assets/theme/functions/gradientChartLine";
 
 // GradientLineChart configurations
 import configs from "examples/Charts/LineCharts/GradientLineChart/configs";
 
-// Material Dashboard 2 React base styles
+// Driver Control React base styles
 import colors from "assets/theme/base/colors";
 
 ChartJS.register(
@@ -71,20 +71,20 @@ function GradientLineChart({ icon, title, description, height, chart }) {
 
     const chartDatasets = chart.datasets
       ? chart.datasets.map((dataset) => ({
-          ...dataset,
-          tension: 0,
-          pointRadius: 0,
-          borderWidth: 4,
-          borderColor: colors[dataset.color]
-            ? colors[dataset.color || "dark"].main
-            : colors.dark.main,
-          fill: true,
-          maxBarThickness: 6,
-          backgroundColor: gradientChartLine(
-            chartElement.ctx,
-            colors[dataset.color] ? colors[dataset.color || "dark"].main : colors.dark.main
-          ),
-        }))
+        ...dataset,
+        tension: 0,
+        pointRadius: 0,
+        borderWidth: 4,
+        borderColor: colors[dataset.color]
+          ? colors[dataset.color || "dark"].main
+          : colors.dark.main,
+        fill: true,
+        maxBarThickness: 6,
+        backgroundColor: gradientChartLine(
+          chartElement.ctx,
+          colors[dataset.color] ? colors[dataset.color || "dark"].main : colors.dark.main
+        ),
+      }))
       : [];
 
     setChartData(configs(chart.labels || [], chartDatasets));

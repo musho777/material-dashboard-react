@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -19,6 +18,7 @@ export const AuthProvider = ({ children }) => {
       });
       setUser(response.data);
     } catch (error) {
+      if (error.status === 403) localStorage.removeItem("token");
       setUser(null);
     } finally {
       setLoading(false);
