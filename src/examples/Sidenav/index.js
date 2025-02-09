@@ -155,7 +155,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         pb={1}
         style={{
           position: "absolute",
-          bottom: 30,
+          bottom: 10,
           left: 0,
           right: 0,
           margin: "auto",
@@ -163,6 +163,13 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         textAlign="center"
       >
         <List>
+          <Divider
+            key={"logout"}
+            light={
+              (!darkMode && !whiteSidenav && !transparentSidenav) ||
+              (darkMode && !transparentSidenav && whiteSidenav)
+            }
+          />
           <MDTypography
             onClick={() => logout()}
             key={"log out"}

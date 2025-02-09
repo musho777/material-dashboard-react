@@ -54,7 +54,7 @@ const routes = [
     name: "statistics",
     key: "statistic",
     icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile/statistic",
+    route: "/profile/statistic/:type",
     component: <Statistics />,
   },
   {

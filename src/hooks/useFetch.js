@@ -21,10 +21,12 @@ export const useFetch = ({ url, interval = null }) => {
   };
 
   useEffect(() => {
-    fetchData();
-    if (interval) {
-      const intervalId = setInterval(fetchData, interval);
-      return () => clearInterval(intervalId);
+    if (url) {
+      fetchData();
+      if (interval) {
+        const intervalId = setInterval(fetchData, interval);
+        return () => clearInterval(intervalId);
+      }
     }
   }, [url, interval]);
 
