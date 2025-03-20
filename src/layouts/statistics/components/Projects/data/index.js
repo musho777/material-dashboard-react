@@ -1,6 +1,6 @@
 import MDTypography from "components/MDTypography";
 export default function datas(date) {
-  let eyeBlinks = date.eyeBlinks;
+  let eyeBlinks = date.data;
   return {
     rows: Array.from(eyeBlinks, (item, index) => {
       const date = new Date(item.timestamp);

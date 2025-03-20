@@ -11,7 +11,6 @@ function Projects() {
   const [rows, setRows] = useState([]);
   const [driverConditionUrl, setDriverConditionUrl] = useState("");
   const { data } = useFetch({ url: driverConditionUrl });
-
   const { user } = useContext(AuthContext);
   const columns = [
     { Header: "date", accessor: "companies", width: "50%", align: "left" },
@@ -26,7 +25,7 @@ function Projects() {
   }, [user]);
 
   useEffect(() => {
-    if (data.eyeBlinks) {
+    if (data?.data?.length) {
       let r = datas(data)?.rows;
       setRows(r);
     }

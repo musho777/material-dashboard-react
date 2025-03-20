@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useChart = ({ data }) => {
+export const useChart = ({ data, label = "" }) => {
   const [chartData, setChartData] = useState({
     data: {},
     error: "",
@@ -22,7 +22,7 @@ export const useChart = ({ data }) => {
           })
           .reverse(),
         datasets: {
-          label: "eye blink",
+          label: label,
           data: data?.map((blink) => blink.count).reverse(),
         },
       };
