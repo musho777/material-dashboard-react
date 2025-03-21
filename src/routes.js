@@ -7,6 +7,7 @@ import Icon from "@mui/material/Icon";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Statistics from "layouts/statistics";
+import AllUsers from "layouts/allusers";
 
 const routes = [
   {
@@ -46,8 +47,16 @@ const routes = [
     name: "Profile",
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
+    route: "/profile/:id",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "allusers",
+    key: "allusers",
+    icon: <Icon fontSize="small">user</Icon>,
+    route: "/allusers",
+    component: <AllUsers />,
   },
   {
     type: "expanded",

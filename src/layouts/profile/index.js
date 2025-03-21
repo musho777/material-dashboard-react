@@ -4,45 +4,85 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Header from "layouts/profile/components/Header";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import { useContext, useEffect, useState } from "react";
-import { useFetch } from "hooks/useFetch";
 import { AuthContext } from "context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import { useChart } from "hooks/useChart";
+import axios from "axios";
 
 function Overview() {
   const navigate = useNavigate();
-  const [url, setUrl] = useState("");
-  const [urlForFatigue, setUrlForFatigue] = useState("");
-  const [urlForCrossLine, setUrlForCrossLine] = useState("");
-  const [sppedUrl, setSpeedUrl] = useState("");
+  const { id } = useParams()
   const { user } = useContext(AuthContext);
+  const [eyeBlinkData, setEyeBlinkData] = useState({
+    data: {},
+    error: "",
+    loading: false,
+    lastUpdate: "",
+  })
+  const [fatigueData, setFatigueData] = useState({
+    data: {},
+    error: "",
+    loading: false,
+    lastUpdate: "",
+  })
+  const [crossLineData, setCrossLineData] = useState({
+    data: {},
+    error: "",
+    loading: false,
+    lastUpdate: "",
+  })
+  const [speedData, setSpeedData] = useState({
+    data: {},
+    error: "",
+    loading: false,
+    lastUpdate: "",
+  })
 
-  const { data } = useFetch({ url: url, interval: 10000 });
-  const forFatigue = useFetch({ url: urlForFatigue, interval: 10000 });
-  const forCrossLine = useFetch({ url: urlForCrossLine, interval: 10000 });
-  const speed = useFetch({ url: sppedUrl, interval: 10000 });
 
-  const eyeBlinkData = useChart({ data: data?.data ?? [], label: "eye blink" });
-  const fatigueData = useChart({ data: forFatigue?.data?.data ?? [], label: "emotions" });
-  const crossLineData = useChart({ data: forCrossLine?.data?.data ?? [], label: "cross line" });
-  const speedData = useChart({ data: speed?.data?.data ?? [], label: "speed" });
+
+  const getData = (url, setData) => {
+    let ID = id
+    if (id == ":id") {
+      ID = user?.user?.id
+    }
+    axios.get(`${process.env.REACT_APP_API_URL}/api/driverCondition/${url}/${ID}?page=1`).then((r) => {
+      const now = new Date();
+      const options = { hour: "2-digit", minute: "2-digit" };
+      let curretnDate = now.toLocaleTimeString([], options);
+      let newData = {};
+      if (r.data) {
+        newData = {
+          labels: r.data.data
+            ?.map((blink) => {
+              const date = new Date(blink.timestamp);
+              return `${date.getHours()}:${String(date.getUTCMinutes()).padStart(2, "0")}`;
+            })
+            .reverse(),
+          datasets: {
+            label: "eye blink",
+            data: r.data.data?.map((blink) => blink.count).reverse(),
+          },
+        };
+      }
+      setData({
+        data: newData,
+        error: "",
+        loading: false,
+        lastUpdate: curretnDate,
+      });
+    })
+      .catch((error) => {
+      })
+  }
+
 
   useEffect(() => {
-    if (user?.user?.id) {
-      const id = user.user.id;
-      setUrl(`${process.env.REACT_APP_API_URL}/api/driverCondition/getEyeBlink/${id}?page=1`);
-      setUrlForFatigue(
-        `${process.env.REACT_APP_API_URL}/api/driverCondition/getFatigue/${id}?page=1`
-      );
-      setSpeedUrl(`${process.env.REACT_APP_API_URL}/api/driverCondition/getSpeed/${id}?page=1`);
-      setUrlForCrossLine(`
-        ${process.env.REACT_APP_API_URL}/api/driverCondition/getCrossLine/${id}?page=1
-        `);
-    }
-  }, [user]);
+    getData("getEyeBlink", setEyeBlinkData)
+    getData("getFatigue", setFatigueData)
+    getData("getCrossLine", setCrossLineData)
+    getData("getSpeed", setSpeedData)
+  }, [])
 
   return (
     <DashboardLayout>
@@ -57,8 +97,8 @@ function Overview() {
                   color="info"
                   title="Eye Blink"
                   description="Last 5 Eye Blink"
-                  date={`last update in ${eyeBlinkData?.chartData?.lastUpdate || "N/A"}`}
-                  chart={eyeBlinkData?.chartData?.data || []}
+                  date={`last update in ${eyeBlinkData?.lastUpdate || "N/A"}`}
+                  chart={eyeBlinkData?.data || []}
                 />
               </MDBox>
             </Grid>
@@ -68,8 +108,8 @@ function Overview() {
                   color="success"
                   title="Fatigue"
                   description={<>Level of fatigue from 0 to 100</>}
-                  date={`last update in ${fatigueData?.chartData?.lastUpdate || "N/A"}`}
-                  chart={fatigueData?.chartData?.data || []}
+                  date={`last update in ${fatigueData?.lastUpdate || "N/A"}`}
+                  chart={fatigueData?.data || []}
                 />
               </MDBox>
             </Grid>
@@ -79,8 +119,8 @@ function Overview() {
                   color="dark"
                   title="Line cross"
                   description={<>line cross in 1 minute</>}
-                  date={`last update in ${crossLineData?.chartData?.lastUpdate || "N/A"}`}
-                  chart={crossLineData?.chartData?.data || []}
+                  date={`last update in ${crossLineData?.lastUpdate || "N/A"}`}
+                  chart={crossLineData?.data || []}
                 />
               </MDBox>
             </Grid>
@@ -91,8 +131,8 @@ function Overview() {
                   color="info"
                   title="hard braking"
                   description={<>hard braking in 1 minute</>}
-                  date={`last update in ${fatigueData?.chartData?.lastUpdate || "N/A"}`}
-                  chart={fatigueData?.chartData?.data || []}
+                  date={`last update in ${fatigueData?.lastUpdate || "N/A"}`}
+                  chart={fatigueData?.data || []}
                 />
               </MDBox>
             </Grid>
@@ -102,8 +142,8 @@ function Overview() {
                   color="info"
                   title="Speed"
                   description={<>speed in 1 minute</>}
-                  date={`last update in ${speedData?.chartData?.lastUpdate || "N/A"}`}
-                  chart={speedData?.chartData?.data || []}
+                  date={`last update in ${speedData?.lastUpdate || "N/A"}`}
+                  chart={speedData?.data || []}
                 />
               </MDBox>
             </Grid>
