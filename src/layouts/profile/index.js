@@ -4,7 +4,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Header from "layouts/profile/components/Header";
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { AuthContext } from "context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
@@ -88,7 +88,7 @@ function Overview() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      <Header>
+      <Header user={user}>
         <MDBox mt={10.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
