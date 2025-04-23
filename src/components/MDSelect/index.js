@@ -7,8 +7,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
@@ -19,40 +17,29 @@ const MenuProps = {
 };
 
 const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
+  "Moderator",
+  "Driver"
 ];
 
-export default function MultipleSelectCheckmarks() {
-  const [personName, setPersonName] = React.useState([]);
+export default function MultipleSelectCheckmarks({ role, setRole }) {
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setRole(typeof value === "string" ? value.split(",") : value)
   };
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+      <FormControl sx={{ width: "100%", mb: 2 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Role</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
-          multiple
-          value={personName}
+          // multiple
+          style={{ height: 45 }}
+          value={role}
           onChange={handleChange}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(",")}
@@ -60,7 +47,7 @@ export default function MultipleSelectCheckmarks() {
         >
           {names.map((name) => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.includes(name)} />
+              <Checkbox checked={role.includes(name)} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}

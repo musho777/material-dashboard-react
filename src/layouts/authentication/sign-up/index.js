@@ -12,12 +12,10 @@ import SingUpLayout from "layouts/authentication/components/SingUpLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import MDStepper from "components/MDStepper";
 import MDAlert from "components/MDAlert";
 
 function Cover() {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [step, setStep] = useState(0);
   const [error, setError] = useState({ type: "", message: "need valid email" });
   const changeStep = () => {
     // setStep(step + 1);

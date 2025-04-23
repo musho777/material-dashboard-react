@@ -8,6 +8,11 @@ import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Statistics from "layouts/statistics";
 import AllUsers from "layouts/allusers";
+import { AddUser } from "layouts/addUsers";
+import TeamsPage from "layouts/createTeam";
+import TeamPage from "layouts/teamSinglPage";
+import SinglTeamPage from "layouts/teamSinglPage";
+import BusinessIcon from '@mui/icons-material/Business';
 
 const routes = [
   {
@@ -52,11 +57,35 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "team",
+    key: "team",
+    icon: <Icon fontSize="small">Team</Icon>,
+    route: "/team",
+    component: <TeamsPage />,
+  },
+  {
+    type: "expanded",
+    name: "singlPage",
+    key: "singlPage",
+    icon: <Icon fontSize="small">company</Icon>,
+    route: "/team/:id",
+    component: <SinglTeamPage />,
+  },
+  {
+    type: "collapse",
     name: "allusers",
     key: "allusers",
-    icon: <Icon fontSize="small">user</Icon>,
+    icon: <Icon fontSize="small">All Users</Icon>,
     route: "/allusers",
     component: <AllUsers />,
+  },
+  {
+    type: "collapse",
+    name: "add user",
+    key: "creat",
+    icon: <Icon fontSize="small">add</Icon>,
+    route: "/addUser",
+    component: <AddUser />,
   },
   {
     type: "expanded",

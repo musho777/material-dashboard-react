@@ -10,6 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 // Driver Control React components
 import MDBox from "components/MDBox";
+import { ToastContainer } from "react-toastify";
 
 // Driver Control React example components
 import Sidenav from "examples/Sidenav";
@@ -154,9 +155,46 @@ export default function App() {
       </div>
     );
   } else
-    return direction === "rtl" ? (
-      <CacheProvider value={rtlCache}>
-        <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+    return <>
+      <ToastContainer position="top-right" autoClose={3000} />
+      {direction === "rtl" ? (
+        <CacheProvider value={rtlCache}>
+          <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+            <CssBaseline />
+            {layout === "dashboard" && isAuthenticated && (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                  brandName="Driver Control"
+                  routes={routes}
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+                <Configurator />
+                {configsButton}
+              </>
+            )}
+            {layout === "vr" && <Configurator />}
+
+            <Routes>
+              {!isAuthenticated ? (
+                <>
+                  <Route path="/sign-in" element={<SignIn />} />
+                  <Route path="/sign-up" element={<SignUp />} />
+                  <Route path="*" element={<Navigate to="/sign-in" />} />
+                </>
+              ) : (
+                <>
+                  {getRoutes(routes)}
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </>
+              )}
+            </Routes>
+          </ThemeProvider>
+        </CacheProvider>
+      ) : (
+        <ThemeProvider theme={darkMode ? themeDark : theme}>
           <CssBaseline />
           {layout === "dashboard" && isAuthenticated && (
             <>
@@ -173,7 +211,6 @@ export default function App() {
             </>
           )}
           {layout === "vr" && <Configurator />}
-
           <Routes>
             {!isAuthenticated ? (
               <>
@@ -189,39 +226,6 @@ export default function App() {
             )}
           </Routes>
         </ThemeProvider>
-      </CacheProvider>
-    ) : (
-      <ThemeProvider theme={darkMode ? themeDark : theme}>
-        <CssBaseline />
-        {layout === "dashboard" && isAuthenticated && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Driver Control"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {!isAuthenticated ? (
-            <>
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="*" element={<Navigate to="/sign-in" />} />
-            </>
-          ) : (
-            <>
-              {getRoutes(routes)}
-              <Route path="*" element={<Navigate to="/dashboard" />} />
-            </>
-          )}
-        </Routes>
-      </ThemeProvider>
-    );
+      )}
+    </>
 }
